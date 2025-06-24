@@ -1,0 +1,2229 @@
+Edufusion
+|
+assects dir
+|	|
+|	css dir
+|	|	|
+|	|	style.css
+|	|
+|	images dir
+|	|
+|	js dir
+|
+config dir
+|
+db dir
+|	|
+|	config.php
+|
+includes dir
+|	|
+|	db_connect.php
+|
+|	footer.php
+|
+|	header.php
+|
+process dir
+|	|
+|	login_process.php
+|
+|	register_process.php
+|
+sql dir
+|
+about.html
+|
+college_info.php
+|
+colleges.php
+|
+Contact Us.html
+|
+Courses.php
+|
+db.php
+|
+index.php
+|
+login.php
+|
+logout.php
+|
+register.php
+|
+search.php
+|
+Top_Colleges.php
+
+
+
+
+Edufusion
+|
+assects dir
+|	|
+|	css dir
+|	|	|
+|	|	style.css
+
+
+
+		/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #240046;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+header .logo img {
+    height: 50px;
+}
+
+.nav-links a,
+.user-options a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-size: 16px;
+}
+
+.nav-links a:hover,
+.user-options a:hover {
+    color: #ff9e00;
+    /* Orange hover color */
+}
+
+.user-options a {
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.user-options a:hover {
+    border-color: #ff9e00;
+}
+
+/* Slideshow Section */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.slideshow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.slideshow img.active {
+    display: block;
+}
+
+/* Search Section Styles */
+.search-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.search-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.search-wrapper {
+    display: flex;
+}
+
+.search-container input[type="text"] {
+    width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px 0 0 5px;
+    /* Rounded left for input */
+    border: none;
+    outline: none;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    background-color: #ff9e00;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    /* Rounded right for button */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    /* Smooth transition */
+}
+
+.search-container button:hover {
+    background-color: #ff7900;
+}
+
+/* Study Goal Section */
+.study-goal {
+    background-color: white;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.study-goal h2 {
+    color: #240046;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.goals-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.goal-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.goal-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.goal-card .icon {
+    font-size: 3rem;
+    color: #7b2cbf;
+    margin-bottom: 10px;
+}
+
+.goal-card h3 {
+    color: #240046;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Top 10 Colleges Section */
+.top-colleges {
+    background-color: white;
+    padding: 40px;
+    width: 90%;
+    margin: 0 auto 40px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.top-colleges h2 {
+    text-align: center;
+    color: #240046;
+    margin-bottom: 30px;
+}
+
+.college-list {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background-color: #240046;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody td {
+    padding: 10px;
+    color: #333;
+}
+
+tbody td img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+tbody td .college-details {
+    display: inline-block;
+    vertical-align: top;
+}
+
+tbody td .college-details span {
+    font-weight: bold;
+    color: #240046;
+}
+
+tbody td .college-details p {
+    margin: 0;
+    color: #5a189a;
+}
+
+
+/* Fees, Cutoff */
+td .cutoff,
+td .fees {
+    font-weight: bold;
+    color: #5a189a;
+}
+
+/* Footer */
+footer {
+    background-color: #240046;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    color: #ff6d00;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+footer a:hover {
+    color: #ff6d00;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .goals-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .goal-card {
+        width: 80%;
+        margin-bottom: 20px;
+    }}
+    
+    
+    /* Star Rating Styles */
+    .star-rating {
+        display: flex;
+        color: #ff9e00;
+    /* Gold color for stars */
+}
+
+.star-rating .star {
+    font-size: 20px;
+    /* Adjust star size */
+}
+
+.star-rating .filled {
+    color: #ff9e00;
+    /* Gold for filled stars */
+}
+
+.star-rating .empty {
+    color: #ddd;
+    /* Gray for empty stars */
+}
+
+
+
+|	|
+|	images dir
+|	|
+|	js dir
+|
+config dir
+|
+db dir
+|	|
+|	config.php
+
+<?php
+// Database configuration
+$host = 'localhost'; // Your database host
+$username = 'root';  // Your database username
+$password = '';      // Your database password (default for XAMPP is usually empty)
+$dbname = 'edufusion'; // Your database name (replace with your actual database name)
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+
+
+|
+includes dir
+|	|
+|	db_connect.php
+
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "edufusion"; // Make sure this matches the database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+
+
+|
+|	footer.php
+
+
+<footer>
+    <p>&copy; 2024 EduFusion. All Rights Reserved.</p>
+    <p><a href="privacy.php">Privacy Policy</a> | <a href="terms.php">Terms of Service</a></p>
+</footer>
+</body>
+</html>
+
+
+|
+|	header.php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFusion</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+     </header>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="assets/images/logo2.png" alt="EduFusion Logo"> <!-- Replace with your logo path -->
+        </div>
+        <div class="nav-links"> 
+            <a href="Top_Colleges.php">Top Colleges</a>
+            <a href="Courses.php">Courses</a>
+            <a href="Contact Us.html">Contact Us</a>
+            <a href="about.html" >About Us</a>
+        </div>
+    </header>
+
+
+
+|
+process dir
+|	|
+|	login_process.php
+
+<?php
+session_start();
+include '../includes/db_connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM users WHERE email='$email'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['first_name'] = $row['first_name'];
+            // Redirect to home
+            header("Location: ../index.php");
+        } else {
+            echo "Invalid password!";
+        }
+    } else {
+        echo "User not found!";
+    }
+}
+?>
+
+
+|
+|	register_process.php
+
+
+<?php
+include '../includes/db_connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $first_name = $_POST['first_name'];
+    $middle_name = $_POST['middle_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    // Check if more than 3 users have the same name
+    $nameCheck = "SELECT COUNT(*) AS count FROM users WHERE first_name='$first_name' AND last_name='$last_name'";
+    $result = $conn->query($nameCheck);
+    $row = $result->fetch_assoc();
+
+    if ($row['count'] < 3) {
+        $sql = "INSERT INTO users (first_name, middle_name, last_name, email, password) VALUES ('$first_name', '$middle_name', '$last_name', '$email', '$password')";
+        if ($conn->query($sql) === TRUE) {
+            header("Location: ../login.php");
+        } else {
+            echo "Error: " . $conn->error;
+        }
+    } else {
+        echo "Sorry, only 3 accounts with the same name allowed!";
+    }
+}
+?>
+
+
+|
+sql dir
+|
+about.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About EduFusion</title>
+    <style>
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        h1, h2, h3 {
+            font-family: 'Roboto', sans-serif;
+            color: #3c096c;
+        }
+        p {
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Header Design */
+        header {
+            background-color: #240046;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        header .logo img {
+            height: 50px;
+        }
+        header .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        header .nav-links a {
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        header .nav-links a:hover {
+            background-color: #5a189a;
+        }
+        header .login-btn {
+            background-color: #ff8500;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        header .login-btn:hover {
+            background-color: #ff9e00;
+        }
+
+        /* Main Section */
+        main {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-heading h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .section-heading p {
+            font-size: 18px;
+            color: #777;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+        }
+        .mission-section .mission-content {
+            max-width: 800px;
+            text-align: center;
+        }
+        .mission-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .why-choose h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .why-choose ul {
+            list-style: none;
+            padding: 0;
+        }
+        .why-choose ul li {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #e0def5;
+            border-radius: 5px;
+        }
+
+        /* Group Photo Section */
+        .team-photo {
+            text-align: center;
+            margin: 50px 0;
+        }
+        .team-photo img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer Design */
+        footer {
+            background-color: #240046;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        footer .footer-section {
+            flex: 1;
+            padding: 20px;
+            min-width: 250px;
+        }
+        footer .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        footer .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        footer .footer-section ul li a {
+            color: white;
+            transition: color 0.3s;
+        }
+        footer .footer-section ul li a:hover {
+            color: #ff8500;
+        }
+        footer .social-icons {
+            margin-top: 20px;
+        }
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 20px;
+        }
+        footer .footer-bottom {
+            margin-top: 20px;
+            border-top: 1px solid #444;
+            padding-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo2.png" alt="EduFusion Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.php">Home</a>
+            <a href="Top_Colleges.php">Top Colleges</a>
+            <a href="Courses.php">Courses</a>
+            <a href="Contact Us.html">Contact Us</a>
+        </div>
+        
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <div class="section-heading">
+            <h1>About EduFusion</h1>
+            <p>Helping students find the best educational institutions for their future.</p>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="mission-section">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>At EduFusion, we are committed to providing students with the tools and resources they need to make informed decisions about their education. Our platform brings together a wealth of information, personalized recommendations, and expert guidance to help students at every stage of their academic journey.</p>
+            </div>
+        </div>
+
+        <!-- Why Choose Section -->
+        <div class="why-choose">
+            <h2>Why Choose EduFusion?</h2>
+            <ul>
+                <li>Top Colleges</li>
+                <li>Personalized Recommendations</li>
+                <li>Guidance & Counseling</li>
+                <li>Detailed Course Info</li>
+            </ul>
+        </div>
+
+        <!-- Group Photo Section -->
+        <div class="team-photo">
+            <img src="assets\images\gp4.jpg" alt="EduFusion Team">
+        </div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Email: support@edufusion.com</li>
+                    <li>Phone: +123-456-7890</li>
+                </ul>
+            </div>
+            <div class="footer-section social-icons">
+                <h3>Follow Us</h3>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 EduFusion. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+|
+college_info.php
+
+
+<?php
+// Include database configuration
+include 'db/config.php';
+
+// Check if college ID is set in the URL
+if (isset($_GET['id'])) {
+    $college_id = $_GET['id'];
+
+    // Fetch college details from the database
+    $query = "SELECT * FROM colleges WHERE college_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $college_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if college exists
+    if ($result->num_rows > 0) {
+        $college = $result->fetch_assoc();
+    } else {
+        echo "College not found!";
+        exit;
+    }
+} else {
+    echo "Invalid college ID!";
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo htmlspecialchars($college['college_name']); ?> - College Info</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #3c096c;
+        }
+        .description {
+            margin: 20px 0;
+        }
+        .college-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .btn-back {
+            background-color: #ff9e00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-back:hover {
+            background-color: #ff7900;
+        }
+    </style>
+</head>
+<body>
+
+<?php include 'includes/header.php'; ?>
+
+<div class="container">
+    <h1><?php echo htmlspecialchars($college['college_name']); ?></h1>
+    
+    <!-- College Logo -->
+    <?php if (!empty($college['logo'])): ?>
+        <img src="assets/images/college-logos/<?php echo htmlspecialchars($college['logo']); ?>" alt="<?php echo htmlspecialchars($college['college_name']); ?> Logo" class="college-image">
+    <?php else: ?>
+        <p>No logo available.</p>
+    <?php endif; ?>
+
+    <div class="description">
+        <p><strong>Location:</strong> <?php echo htmlspecialchars($college['location']); ?></p>
+        <p><strong>Short Description:</strong> <?php echo nl2br(htmlspecialchars($college['short_description'])); ?></p>
+        <p><strong>Courses Offered:</strong> <?php echo htmlspecialchars($college['courses']); ?></p>
+        <p><strong>Rating:</strong> <?php echo htmlspecialchars($college['rating']); ?>/5</p>
+        <p><strong>Study Goal:</strong> <?php echo htmlspecialchars($college['study_goal']); ?></p>
+        <p><strong>Cutoff:</strong> <?php echo htmlspecialchars($college['cutoff']); ?></p>
+        <p><strong>Application Deadline:</strong> <?php echo $college['application_deadline'] ? date('d M Y', strtotime($college['application_deadline'])) : 'N/A'; ?></p>
+        <p><strong>Fees:</strong> ₹<?php echo number_format($college['fees']); ?></p>
+    </div>
+
+    <a href="index.php" class="btn-back">Back to Colleges</a>
+</div>
+
+<?php include 'includes/footer.php'; ?>
+
+</body>
+</html>
+
+
+|
+colleges.php
+
+<?php
+// Include database configuration
+include 'db/config.php';
+
+// Get the study goal and course from the URL (with default values)
+$study_goal = isset($_GET['goal']) ? $_GET['goal'] : '';
+$course = isset($_GET['course']) ? $_GET['course'] : '';
+
+// Prepare the SQL query
+if (!empty($study_goal)) {
+    if (!empty($course)) {
+        // Query for both study goal and course
+        $query = "SELECT * FROM colleges WHERE study_goal = ? AND courses LIKE ?";
+        $stmt = $conn->prepare($query);
+        $course = '%' . $course . '%'; // Add wildcards for partial matching
+        $stmt->bind_param("ss", $study_goal, $course);
+    } else {
+        // Query for only study goal
+        $query = "SELECT * FROM colleges WHERE study_goal = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $study_goal);
+    }
+} else {
+    // Default query if no goal is provided (show all colleges)
+    $query = "SELECT * FROM colleges";
+    $stmt = $conn->prepare($query);
+}
+
+// Execute the statement and get the result
+$stmt->execute();
+$result = $stmt->get_result();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colleges - <?php echo ucfirst($study_goal); ?></title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<?php include 'includes/header.php'; ?>
+
+<div class="container">
+    <h2>Colleges for <?php echo !empty($study_goal) ? ucfirst($study_goal) : 'All Goals'; ?></h2>
+    
+    <div class="college-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>College Name</th>
+                    <th>Location</th>
+                    <th>Rating</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Check if any colleges are found
+                if ($result->num_rows > 0) {
+                    while ($college = $result->fetch_assoc()) {
+                        echo "<tr>
+                                <td>{$college['college_name']}</td>
+                                <td>{$college['location']}</td>
+                                <td>{$college['rating']}</td>
+                                <td><a href='college_info.php?id={$college['college_id']}'>View Info</a></td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>No colleges found for this study goal or course.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php include 'includes/footer.php'; ?>
+
+</body>
+</html>
+
+<?php
+// Close the statement and database connection
+$stmt->close();
+$conn->close();
+?>
+
+
+|
+Contact Us.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - EduFusion</title>
+    <style>
+        /* Basic Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        h1, h2, h3 {
+            font-family: 'Roboto', sans-serif;
+            color: #3c096c;
+        }
+        p {
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Header Design */
+        header {
+            background-color: #240046;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        header .logo img {
+            height: 50px;
+        }
+        header .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        header .nav-links a {
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        header .nav-links a:hover {
+            background-color: #5a189a;
+        }
+        header .login-btn {
+            background-color: #ff8500;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        header .login-btn:hover {
+            background-color: #ff9e00;
+        }
+
+        /* Main Section */
+        main {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-heading h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .section-heading p {
+            font-size: 18px;
+            color: #777;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        .contact-form h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            background-color: #ff8500;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover {
+            background-color: #ff9e00;
+        }
+
+        /* Contact Details Section */
+        .contact-details {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        .contact-details h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .contact-details ul {
+            list-style: none;
+            padding: 0;
+            color: #555;
+        }
+        .contact-details ul li {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .contact-details ul li i {
+            color: #ff8500;
+            margin-right: 10px;
+        }
+
+        /* Google Map */
+        .map {
+            width: 100%;
+            height: 400px;
+            margin-top: 50px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer Design */
+        footer {
+            background-color: #240046;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        footer .footer-section {
+            flex: 1;
+            padding: 20px;
+            min-width: 250px;
+        }
+        footer .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        footer .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        footer .footer-section ul li a {
+            color: white;
+            transition: color 0.3s;
+        }
+        footer .footer-section ul li a:hover {
+            color: #ff8500;
+        }
+        footer .social-icons {
+            margin-top: 20px;
+        }
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 20px;
+        }
+        footer .footer-bottom {
+            margin-top: 20px;
+            border-top: 1px solid #444;
+            padding-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo2.png" alt="EduFusion Logo"> <!-- Replace with your logo path -->
+        </div>
+        <div class="nav-links">
+            <a href="index.php">Home</a>
+            <a href="Top_Colleges.php">Top Colleges</a>
+            <a href="Courses.php">Courses</a>
+            <a href="about.html">About Us</a>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <div class="section-heading">
+            <h1>Contact Us</h1>
+            <p>We are here to help you. Get in touch with us!</p>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="contact-form-section">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <form action="#">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name..." required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your email..." required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
+            <!-- Contact Details -->
+            <div class="contact-details">
+                <h2>Our Contact Details</h2>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 EduFusion St, Learning City, India</li>
+                    <li><i class="fas fa-phone-alt"></i> +91 12345 67890</li>
+                    <li><i class="fas fa-envelope"></i> info@edufusion.com</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Google Map -->
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=YOUR_GOOGLE_MAP_EMBED_CODE"
+                    width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="top-colleges.html">Top Colleges</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 EduFusion. All rights reserved. Terms of Service | Privacy Policy
+        </div>
+    </footer>
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
+
+
+|
+Courses.php
+
+<?php
+session_start(); // Start session to check login status
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFusion - Courses</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css"> <!-- Link to your custom CSS file -->
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #240046;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .category-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom {
+            background-color: #ff9e00;
+            color: white;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #ff7900;
+        }
+    </style>
+</head>
+<body>
+
+<?php include 'includes/header.php'; ?>
+
+<div class="container">
+    <h2>Courses</h2>
+
+    <!-- Engineering Section -->
+    <div class="category-card">
+        <h3>Engineering</h3>
+        <p>Explore various engineering courses</p>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=engineering&course=BE/B.Tech'">BE/B.Tech</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=engineering&course=ME/M.Tech'">ME/M.Tech</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=engineering&course=Diploma in Engineering'">Diploma in Engineering</button>
+    </div>
+
+    <!-- Arts Section -->
+    <div class="category-card">
+        <h3>Arts</h3>
+        <p>Explore various arts courses</p>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=arts&course=BA'">BA</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=arts&course=MA'">MA</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=arts&course=BFA'">BFA</button>
+    </div>
+
+    <!-- Medical Section -->
+    <div class="category-card">
+        <h3>Medical</h3>
+        <p>Explore various medical courses</p>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=medical&course=MBBS'">MBBS</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=medical&course=MD'">MD</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=medical&course=PG Medical'">PG Medical</button>
+    </div>
+
+    <!-- Management Section -->
+    <div class="category-card">
+        <h3>Management</h3>
+        <p>Explore various management courses</p>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=management&course=MBA'">MBA</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=management&course=PGDM'">PGDM</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=management&course=BBA'">BBA</button>
+    </div>
+
+    <!-- Commerce Section -->
+    <div class="category-card">
+        <h3>Commerce</h3>
+        <p>Explore various commerce courses</p>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=commerce&course=B.Com'">B.Com</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=commerce&course=M.Com'">M.Com</button>
+    </div>
+
+    <!-- Design Section -->
+    <div class="category-card">
+        <h3>Design</h3>
+        <p>Explore various design courses</p>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=design&course=B.DES'">B.DES</button>
+        <button class="btn btn-custom" onclick="location.href='colleges.php?goal=design&course=M.DES'">M.DES</button>
+    </div>
+</div>
+
+<?php include 'includes/footer.php'; ?>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+|
+db.php
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "edufusion";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+
+|
+index.php
+
+<?php
+session_start(); // Start session to check login status
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFusion - College Search Platform</title>
+    <link rel="stylesheet" href="assets/css/style.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="assets/images/logo2.png" alt="EduFusion Logo"> <!-- Replace with your logo path -->
+        </div>
+        <div class="nav-links"> 
+            <a href="about.html" class="nav-link">About Us</a>
+            <a href="Contact Us.html" class="nav-link">Contact</a>
+            <a href="Top_Colleges.php">Top Colleges</a>
+            <a href="Courses.php">Courses</a>
+            <a href="Contact Us.html">Contact Us</a>
+        </div>
+        <div class="user-options">
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a href="profile.php" class="nav-link"><?php echo $_SESSION['first_name']; ?> <i class="fas fa-user"></i></a>
+                <a href="logout.php" class="nav-link">Logout</a>
+            <?php else: ?>
+                <a href="login.php" class="nav-link">Login</a>
+            <?php endif; ?>
+        </div>
+    </header>
+
+    <!-- Slideshow Section -->
+    <div class="slideshow-container">
+        <div class="slideshow">
+            <img src="assets/images/clg1.jpeg" alt="College Image 1" class="active">
+            <img src="assets/images/clg2.jpeg" alt="College Image 2">
+            <img src="assets/images/clg3.jpeg" alt="College Image 3">
+            <img src="assets/images/clg4.jpg" alt="College Image 4">
+            <img src="assets/images/clg5.jpg" alt="College Image 5">
+            <img src="assets/images/clg6.jpg" alt="College Image 6">
+        </div>
+    </div>
+
+    <!-- Search Section Overlaid on Slideshow -->
+    <div class="search-container">
+        <h1>Find the Best Colleges for Your Future Education</h1>
+        <form action="search.php" method="get">  
+            <div class="search-wrapper">
+                <input type="text" placeholder="Search for Colleges or Location" name="query" required>
+                <button type="submit" class="btn">Search</button>
+            </div>
+        </form>
+        <p>Your journey to higher education starts here!</p>
+    </div>
+
+    <!-- Study Goal Section -->
+    <section class="study-goal">
+        <h2>Select Your Study Goal</h2>
+        <div class="goals-container">
+            <div class="goal-card">
+                <a href="colleges.php?goal=engineering">
+                    <div class="icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3>Engineering</h3>
+                    <p>6226 Colleges</p>
+                    <ul>
+                        <li>BE/B.Tech</li>
+                        <li>Diploma in Engineering</li>
+                        <li>ME/M.Tech</li>
+                    </ul>
+                </a>
+            </div>
+            <div class="goal-card">
+                <a href="colleges.php?goal=management">
+                    <div class="icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Management</h3>
+                    <p>7664 Colleges</p>
+                    <ul>
+                        <li>MBA/PGDM</li>
+                        <li>BBA/BMS</li>
+                        <li>Executive MBA</li>
+                    </ul>
+                </a>
+            </div>
+            <div class="goal-card">
+                <a href="colleges.php?goal=commerce">
+                    <div class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Commerce</h3>
+                    <p>4923 Colleges</p>
+                    <ul>
+                        <li>B.Com</li>
+                        <li>M.Com</li>
+                    </ul>
+                </a>
+            </div>
+            <div class="goal-card">
+                <a href="colleges.php?goal=arts">
+                    <div class="icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Arts</h3>
+                    <p>5546 Colleges</p>
+                    <ul>
+                        <li>BA</li>
+                        <li>MA</li>
+                        <li>BFA</li>
+                        <li>BSW</li>
+                    </ul>
+                </a>
+            </div>
+            <div class="goal-card">
+                <a href="colleges.php?goal=medical">
+                    <div class="icon">
+                        <i class="fa-solid fa-dna"></i>
+                    </div>
+                    <h3>Medical</h3>
+                    <p>7664 Colleges</p>
+                    <ul>
+                        <li>MBBS</li>
+                        <li>PG Medical</li>
+                    </ul>
+                </a>
+            </div>
+            <div class="goal-card">
+                <a href="colleges.php?goal=design">
+                    <div class="icon">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+                    <h3>Design</h3>
+                    <p>7664 Colleges</p>
+                    <ul>
+                        <li>B.DES</li>
+                        <li>M.DES</li>
+                    </ul>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <?php
+    // Include database connection file
+    include 'includes/db_connect.php';
+
+    // Query to fetch the top 10 colleges
+    $query = "SELECT * FROM colleges ORDER BY rating DESC LIMIT 10";
+    $result = mysqli_query($conn, $query);
+    ?>
+
+    <!-- Top 10 College Section -->
+    <section class="top-colleges">
+        <h2>Top 10 Colleges</h2>
+        <div class="college-categories">
+            <button class="category" onclick="filterColleges('all')">All Colleges</button>
+            <button class="category" onclick="filterColleges('engineering')">Engineering</button>
+            <button class="category" onclick="filterColleges('management')">Management</button>
+            <button class="category" onclick="filterColleges('commerce')">Commerce</button>
+            <button class="category" onclick="filterColleges('arts')">Arts</button>
+            <button class="category" onclick="filterColleges('medical')">Medical</button>
+            <button class="category" onclick="filterColleges('design')">Design</button>
+        </div>
+        <div class="college-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>College</th>
+                        <th>Ranking</th>
+                        <th>Cutoff</th>
+                        <th>Application Deadline</th>
+                        <th>Fees</th>
+                    </tr>
+                </thead>
+                <tbody id="collegeTable">
+                    <?php
+                    if (mysqli_num_rows($result) > 0) {
+                        $rank = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            // Check if fields exist, otherwise provide a default value
+                            $cutoff = isset($row['cutoff']) ? $row['cutoff'] : 'N/A';
+                            $application_deadline = isset($row['application_deadline']) ? $row['application_deadline'] : 'N/A';
+                            $fees = isset($row['fees']) && !empty($row['fees']) ? number_format($row['fees']) : 'N/A';
+
+                            echo '<tr class="' . strtolower($row['study_goal']) . '">'; // Add class for filtering
+                            echo '<td>#' . $rank++ . '</td>';
+                            echo '<td>';
+                            echo '<img src="assets/images/college-logos/' . $row['logo'] . '" alt="' . $row['college_name'] . ' Logo" class="college-logo">'; // Ensure logo is fetched
+                            echo '<div class="college-details">';
+                            echo '<span>' . $row['college_name'] . '</span>';
+                            echo '<p>' . $row['location'] . '</p>';
+                            echo '<div class="star-rating">';
+                            for ($i = 0; $i < 5; $i++) {
+                                echo '<span class="star' . ($i < $row['rating'] ? ' filled' : ' empty') . '">&#9733;</span>'; // Unicode star character
+                            }
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</td>';
+                            echo '<td>#' . $rank . ' in India 2024</td>'; // Adjust as per ranking field
+                            echo '<td>' . $cutoff . '</td>'; // Cutoff or N/A
+                            echo '<td>' . $application_deadline . '</td>'; // Deadline or N/A
+                            echo '<td>₹' . $fees . '<br>1st Year Fees</td>';
+                            echo '</tr>';
+                        }
+                    } else {
+                        echo '<tr><td colspan="6">No Colleges Available</td></tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <?php
+    // Close database connection
+    mysqli_close($conn);
+    ?>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 EduFusion. All Rights Reserved.</p>
+        <p><a href="privacy.php">Privacy Policy</a> | <a href="terms.php">Terms of Service</a></p>
+    </footer>
+
+    <!-- JavaScript for Slideshow and Filtering -->
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.querySelectorAll(".slideshow img");
+            slides.forEach(slide => slide.style.display = "none"); // Hide all slides
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; } // Loop back to first slide
+            slides[slideIndex - 1].style.display = "block"; // Show the current slide
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+
+        function filterColleges(type) {
+            let rows = document.querySelectorAll("#collegeTable tr");
+            rows.forEach(row => {
+                if (type === 'all' || row.classList.contains(type)) {
+                    row.style.display = ""; // Show matched rows
+                } else {
+                    row.style.display = "none"; // Hide unmatched rows
+                }
+            });
+        }
+    </script>
+
+<script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2024/10/21/13/20241021135733-YMSV27HA.js"></script>
+
+<script>
+    // Show the chatbot popup when the button is clicked
+    document.getElementById('chatbotButton').onclick = function() {
+        document.getElementById('chatbotPopup').style.display = 'block';
+    }
+
+    // Close the chatbot popup when the close button is clicked
+    document.getElementById('closeButton').onclick = function() {
+        document.getElementById('chatbotPopup').style.display = 'none';
+    }
+
+    // Close the chatbot popup when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('chatbotPopup')) {
+            document.getElementById('chatbotPopup').style.display = 'none';
+        }
+    }
+</script>
+
+
+</body>
+</html>
+
+
+|
+login.php
+
+<?php include 'includes/header.php'; ?>
+
+<head>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Arial', sans-serif;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .form-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .btn {
+            background-color: #7b2cbf;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .btn:hover {
+            background-color: #9d4edd;
+        }
+        .recover {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .recover a {
+            color: #7b2cbf;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .recover a:hover {
+            text-decoration: underline;
+        }
+        .social-login p {
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .social-login a {
+            margin: 0 10px;
+            font-size: 28px;
+            color: #888;
+        }
+        .social-login a:hover {
+            color: #555;
+        }
+        p a {
+            color: #7b2cbf;
+            text-decoration: none;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<div class="form-container">
+    <div class="form-box">
+        <h2>Sign In</h2>
+        <form action="process/login_process.php" method="post">
+            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" name="email" required placeholder="Enter your email">
+
+            <label for="password"><i class="fas fa-lock"></i> Password</label>
+            <input type="password" name="password" required placeholder="Enter your password">
+
+            <div class="recover">
+                <a href="recover_password.php">Recover Password</a>
+            </div>
+
+            <button type="submit" class="btn">Sign In</button>
+
+            <div class="social-login">
+                <p>--------- or ---------</p>
+                <a href="#"><i class="fab fa-google"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+
+            <p>Don't have an account yet? <a href="register.php">Sign Up</a></p>
+        </form>
+    </div>
+</div>
+
+<?php include 'includes/footer.php'; ?>
+
+
+|
+logout.php
+
+<?php
+session_start();
+session_destroy();
+header("Location: index.php");
+?>
+
+
+|
+register.php
+
+<?php include 'includes/header.php'; ?>
+
+<head>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Arial', sans-serif;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .form-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .btn {
+            background-color: #7b2cbf;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .btn:hover {
+            background-color: #9d4edd;
+        }
+    </style>
+</head>
+
+<div class="form-container">
+    <div class="form-box">
+        <h2>Register</h2>
+        <form action="process/register_process.php" method="post">
+            <label for="first_name"><i class="fas fa-user"></i> First Name</label>
+            <input type="text" name="first_name" required placeholder="Enter your first name">
+
+            <label for="middle_name"><i class="fas fa-user"></i> Middle Name</label>
+            <input type="text" name="middle_name" placeholder="Enter your middle name">
+
+            <label for="last_name"><i class="fas fa-user"></i> Last Name</label>
+            <input type="text" name="last_name" required placeholder="Enter your last name">
+
+            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" name="email" required placeholder="Enter your email">
+
+            <label for="password"><i class="fas fa-lock"></i> Password</label>
+            <input type="password" name="password" required placeholder="Enter your password">
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+</div>
+
+<?php include 'includes/footer.php'; ?>
+
+
+|
+search.php
+
+<?php include 'includes/header.php'; ?>
+<style>
+    .college-list table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .college-list th, .college-list td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .college-list th {
+        background-color: #240046;
+        color: white;
+    }
+
+    .college-list td {
+        background-color: #f9f9f9;
+    }
+
+    .college-list tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<?php
+// Include database connection
+include 'includes/db_connect.php';
+
+// Check if the search query is set and not empty
+if (isset($_GET['query']) && !empty($_GET['query'])) {
+    $query = $_GET['query'];
+
+    // Prepare the SQL query to search by college name or location
+    $sql = "SELECT * FROM colleges WHERE college_name LIKE ? OR location LIKE ?";
+    $stmt = $conn->prepare($sql);
+
+    // Add wildcard characters to the query for partial matching
+    $search_term = '%' . $query . '%';
+
+    // Bind parameters and execute the query
+    $stmt->bind_param('ss', $search_term, $search_term);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if any colleges are found
+    if ($result->num_rows > 0) {
+        echo "<h2>Search Results for '$query':</h2>";
+        echo "<div class='college-list'>";
+        echo "<table>";
+        echo "<thead><tr><th>College Name</th><th>Location</th><th>Courses</th><th>Rating</th><th>Action</th></tr></thead>";
+        echo "<tbody>";
+
+        // Loop through the results and display them with a "View Info" link
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row['college_name'] . "</td>";
+            echo "<td>" . $row['location'] . "</td>";
+            echo "<td>" . $row['courses'] . "</td>";
+            echo "<td>" . $row['rating'] . "/5</td>";
+
+            // Add the "View Info" link to redirect to the specific college details page
+            // Make sure it passes the correct college_id as id
+            echo "<td><a href='college_info.php?id=" . $row['college_id'] . "'>View Info</a></td>";
+            echo "</tr>";
+        }
+
+        echo "</tbody>";
+        echo "</table>";
+        echo "</div>";
+    } else {
+        echo "<p>No colleges found for '$query'.</p>";
+    }
+
+    // Close the statement
+    $stmt->close();
+} else {
+    echo "<p>Please enter a search term.</p>";
+}
+
+// Close the database connection
+$conn->close();
+?>
+<?php include 'includes/footer.php'; ?>
+
+
+|
+Top_Colleges.php
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFusion - College Search Platform</title>
+    <link rel="stylesheet" href="assets/css/style.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="assets/images/logo2.png" alt="EduFusion Logo"> <!-- Replace with your logo path -->
+        </div>
+        <div class="nav-links"> 
+            <a href="index.php" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Us</a>
+            <a href="Contact Us.html" class="nav-link">Contact</a>
+        </div>
+       
+    </header>
+
+    <?php
+    // Include database connection file
+    include 'includes/db_connect.php';
+
+    // Query to fetch the top 10 colleges
+    $query = "SELECT * FROM colleges ORDER BY rating DESC LIMIT 10";
+    $result = mysqli_query($conn, $query);
+    ?>
+
+        <!-- Top 10 College Section -->
+        <section class="top-colleges">
+        <h2>Top Colleges</h2>
+        <div class="college-categories">
+            <button class="category" onclick="filterColleges('all')">All Colleges</button>
+            <button class="category" onclick="filterColleges('engineering')">Engineering</button>
+            <button class="category" onclick="filterColleges('management')">Management</button>
+            <button class="category" onclick="filterColleges('commerce')">Commerce</button>
+            <button class="category" onclick="filterColleges('arts')">Arts</button>
+            <button class="category" onclick="filterColleges('medical')">Medical</button>
+            <button class="category" onclick="filterColleges('design')">Design</button>
+        </div>
+        <div class="college-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>College</th>
+                        <th>Ranking</th>
+                        <th>Cutoff</th>
+                        <th>Application Deadline</th>
+                        <th>Fees</th>
+                    </tr>
+                </thead>
+                <tbody id="collegeTable">
+                    <?php
+                    if (mysqli_num_rows($result) > 0) {
+                        $rank = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            // Check if fields exist, otherwise provide a default value
+                            $cutoff = isset($row['cutoff']) ? $row['cutoff'] : 'N/A';
+                            $application_deadline = isset($row['application_deadline']) ? $row['application_deadline'] : 'N/A';
+                            $fees = isset($row['fees']) && !empty($row['fees']) ? number_format($row['fees']) : 'N/A';
+
+                            // Assign a class for filtering
+                            $collegeTypeClass = strtolower($row['study_goal']); // Assuming study_goal matches the filter button names
+
+                            echo '<tr class="' . $collegeTypeClass . '">'; // Add class for filtering
+                            echo '<td>#' . $rank++ . '</td>';
+                            echo '<td>';
+                            echo '<img src="assets/images/college-logos/' . $row['logo'] . '" alt="' . $row['college_name'] . ' Logo" class="college-logo">'; // Ensure logo is fetched
+                            echo '<div class="college-details">';
+                            echo '<span>' . $row['college_name'] . '</span>';
+                            echo '<p>' . $row['location'] . '</p>';
+                            echo '<div class="star-rating">';
+                            for ($i = 0; $i < 5; $i++) {
+                                echo '<span class="star' . ($i < $row['rating'] ? ' filled' : ' empty') . '">&#9733;</span>'; // Unicode star character
+                            }
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</td>';
+                            echo '<td>#' . $rank . ' in India 2024</td>'; // Adjust as per ranking field
+                            echo '<td>' . $cutoff . '</td>'; // Cutoff or N/A
+                            echo '<td>' . $application_deadline . '</td>'; // Deadline or N/A
+                            echo '<td>₹' . $fees . '<br>1st Year Fees</td>';
+                            echo '</tr>';
+                        }
+                    } else {
+                        echo '<tr><td colspan="6">No Colleges Available</td></tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <?php
+    // Close database connection
+    mysqli_close($conn);
+    ?>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 EduFusion. All Rights Reserved.</p>
+        <p><a href="privacy.php">Privacy Policy</a> | <a href="terms.php">Terms of Service</a></p>
+    </footer>
+
+    <!-- JavaScript for Slideshow and Filtering -->
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.querySelectorAll(".slideshow img");
+            slides.forEach(slide => slide.style.display = "none"); // Hide all slides
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; } // Loop back to first slide
+            slides[slideIndex - 1].style.display = "block"; // Show the current slide
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+
+        function filterColleges(type) {
+            let rows = document.querySelectorAll("#collegeTable tr");
+            rows.forEach(row => {
+                if (type === 'all' || row.classList.contains(type)) {
+                    row.style.display = ""; // Show matched rows
+                } else {
+                    row.style.display = "none"; // Hide unmatched rows
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+

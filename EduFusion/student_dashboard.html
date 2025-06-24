@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+        }
+
+        header {
+            background-color: #3c096c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .student-info {
+            background-color: #240046;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: flex;
+            gap: 20px;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #ff8500;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            background: #ff6d00;
+            transform: scale(1.05);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <div class="student-info">
+            <h2 id="studentName">Loading...</h2>
+            <p id="studentInfo">Fetching your data...</p>
+        </div>
+
+        <div class="section">
+            <div class="card" onclick="redirectTo('roll_call.html')">
+                <h2>Roll Call</h2>
+            </div>
+
+            <div class="card" onclick="redirectTo('study_material.html')">
+                <h2>Study Material</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fetchStudentData() {
+            const studentName = sessionStorage.getItem("studentName");
+            const enrollmentNo = sessionStorage.getItem("studentId");
+            const branch = sessionStorage.getItem("branch");
+            const currentSem = sessionStorage.getItem("currentSem");
+
+            if (!studentName || !enrollmentNo) {
+                alert("Student data not found. Redirecting to login...");
+                window.location.href = "login.html";
+                return;
+            }
+
+            document.getElementById("studentName").textContent = studentName;
+            document.getElementById("studentInfo").textContent = `Enrollment No: ${enrollmentNo} | Branch: ${branch} | Sem: ${currentSem}`;
+        }
+
+        function redirectTo(page) {
+    const enrollmentNo = sessionStorage.getItem("studentId");
+    if (!enrollmentNo) {
+        alert("Enrollment number not found. Please log in again.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Append enrollment number as query parameter
+    window.location.href = `${page}?enrollmentNo=${enrollmentNo}`;
+}
+
+
+        fetchStudentData();
+    </script>
+</body>
+</html>

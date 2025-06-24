@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll Call - Attendance System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #3c096c;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #3c096c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #5a189a;
+        }
+
+        .status {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .attendance-summary {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #3c096c;
+            color: white;
+        }
+
+        table td {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Roll Call</h1>
+        <p>Select a lecture and click "Mark Attendance" to submit your attendance for today.</p>
+        
+        <label for="lectureSelect">Choose Lecture:</label>
+        <select id="lectureSelect">
+            <option value="lecture1">Lecture 1 (09:30 - 10:30)</option>
+            <option value="lecture2">Lecture 2 (10:30 - 11:30)</option>
+            <option value="lecture3">Lecture 3 (12:15 - 01:15)</option>
+            <option value="lecture4">Lecture 4 (01:15 - 02:15)</option>
+            <option value="lecture5">Lecture 5 (02:30 - 03:30)</option>
+            <option value="lecture6">Lecture 6 (03:30 - 07:00)</option> <!-- Extended time -->
+        </select>
+        
+        <button id="markAttendanceButton">Mark Attendance</button>
+        <div id="status" class="status"></div>
+
+        <div class="attendance-summary">
+            <h2>Your Attendance Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Lecture 1</th>
+                        <th>Lecture 2</th>
+                        <th>Lecture 3</th>
+                        <th>Lecture 4</th>
+                        <th>Lecture 5</th>
+                        <th>Lecture 6</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTable">
+                    <!-- Attendance records will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC44NKT8t45pQCe6-YQByjMH2QCXKZV8XQ",
+            authDomain: "edufusion-8efbf.firebaseapp.com",
+            databaseURL: "https://edufusion-8efbf-default-rtdb.firebaseio.com",
+            projectId: "edufusion-8efbf",
+            storageBucket: "edufusion-8efbf.appspot.com",
+            messagingSenderId: "676084495283",
+            appId: "1:676084495283:web:efc5365f66679707a611c6",
+            measurementId: "G-D2T62EWR4X"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Get Enrollment Number from URL or Session
+        const urlParams = new URLSearchParams(window.location.search);
+        const enrollmentNo = urlParams.get("enrollmentNo");
+
+        if (!enrollmentNo) {
+            alert("Error: Enrollment number not found. Redirecting to dashboard.");
+            window.location.href = "student_dashboard.html";
+        }
+
+        // Predefined Campus Coordinates and Allowed Radius
+        const campusLatitude = 15.904340585894177;
+        const campusLongitude = 73.84499557638954;
+        const allowedRadius = 1000; // 1km radius
+
+        // Calculate Distance Between Two Coordinates
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Earth's radius in meters
+            const toRad = (value) => (value * Math.PI) / 180;
+
+            const φ1 = toRad(lat1);
+            const φ2 = toRad(lat2);
+            const Δφ = toRad(lat2 - lat1);
+            const Δλ = toRad(lon2 - lon1);
+
+            const a =
+                Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c; // Distance in meters
+        }
+
+        // Mark Attendance
+        document.getElementById("markAttendanceButton").addEventListener("click", () => {
+            const lectureSelect = document.getElementById("lectureSelect").value;
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            const today = now.toISOString().split("T")[0];
+            const statusDiv = document.getElementById("status");
+
+            // Get Geolocation
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const { latitude, longitude } = position.coords;
+                    const distance = calculateDistance(latitude, longitude, campusLatitude, campusLongitude);
+
+                    if (distance <= allowedRadius) {
+                        const attendanceRef = database.ref(`attendance/${enrollmentNo}/${today}/${lectureSelect}`);
+                        attendanceRef.set({
+                            status: "Present",
+                            markedAt: now.toISOString(),
+                            location: { latitude, longitude }
+                        }).then(() => {
+                            statusDiv.textContent = `${lectureSelect.replace("lecture", "Lecture ")} marked as present.`;
+                            statusDiv.classList.remove("error");
+                            fetchAttendanceRecords();
+                        }).catch((error) => {
+                            statusDiv.textContent = `Error: ${error.message}`;
+                            statusDiv.classList.add("error");
+                        });
+                    } else {
+                        statusDiv.textContent = "Error: You are outside the allowed location.";
+                        statusDiv.classList.add("error");
+                    }
+                }, () => {
+                    statusDiv.textContent = "Error: Unable to retrieve location.";
+                    statusDiv.classList.add("error");
+                });
+            } else {
+                statusDiv.textContent = "Error: Geolocation is not supported by your browser.";
+                statusDiv.classList.add("error");
+            }
+        });
+
+        // Fetch Attendance Records
+        function fetchAttendanceRecords() {
+    const attendanceRef = database.ref(`attendance/${enrollmentNo}`);
+    attendanceRef.once("value", (snapshot) => {
+        const attendanceTable = document.getElementById("attendanceTable");
+        attendanceTable.innerHTML = "";
+
+        snapshot.forEach((dateSnapshot) => {
+            const date = dateSnapshot.key;
+            const lectures = dateSnapshot.val();
+
+            let row = `<tr><td>${date}</td>`;
+            for (let i = 1; i <= 6; i++) {
+                const lectureKey = `lecture${i}`;
+                const lecture = lectures[lectureKey];
+                row += `<td>${lecture ? "✔️" : "❌"}</td>`; // Ensure backticks
+            }
+            row += `</tr>`;
+            attendanceTable.innerHTML += row;
+        });
+    });
+}
+
+
+        // Fetch attendance records on load
+        fetchAttendanceRecords();
+    </script>
+</body>
+</html>

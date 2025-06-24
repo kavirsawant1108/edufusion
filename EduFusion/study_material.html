@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Material</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #3c096c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5a189a;
+        }
+        .materials {
+            margin-top: 30px;
+        }
+        .material-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .subjects {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Study Material</h2>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label for="branch">Branch:</label>
+                <select id="branch" required>
+                    <option value="civil">Civil Engineering</option>
+                    <option value="computer">Computer Engineering</option>
+                    <option value="electrical">Electrical Engineering</option>
+                    <option value="electronics">Electronics Engineering</option>
+                    <option value="mechanical">Mechanical Engineering</option>
+                    <option value="it">Information Technology</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semester">Semester:</label>
+                <select id="semester" required>
+                    <option value="sem1">Semester 1</option>
+                    <option value="sem2">Semester 2</option>
+                    <option value="sem3">Semester 3</option>
+                    <option value="sem4">Semester 4</option>
+                    <option value="sem5">Semester 5</option>
+                    <option value="sem6">Semester 6</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="repoLink">GitHub Repo Link:</label>
+                <input type="url" id="repoLink" required>
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="message"></div>
+        <div class="materials" id="materialsList">
+            <h2>Available Study Materials</h2>
+        </div>
+        <div class="subjects" id="subjectsList">
+            <h2>Subjects by Semester</h2>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC44NKT8t45pQCe6-YQByjMH2QCXKZV8XQ",
+            authDomain: "edufusion-8efbf.firebaseapp.com",
+            databaseURL: "https://edufusion-8efbf-default-rtdb.firebaseio.com/",
+            projectId: "edufusion-8efbf",
+            storageBucket: "edufusion-8efbf.appspot.com",
+            messagingSenderId: "676084495283",
+            appId: "1:676084495283:web:efc5365f66679707a611c6",
+            measurementId: "G-D2T62EWR4X",
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Handle Form Submission
+        document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const branch = document.getElementById("branch").value;
+            const semester = document.getElementById("semester").value;
+            const subject = document.getElementById("subject").value;
+            const repoLink = document.getElementById("repoLink").value;
+
+            if (repoLink) {
+                try {
+                    // Save Metadata to Firebase
+                    const materialRef = database.ref("study_materials");
+                    materialRef.push({
+                        url: repoLink,
+                        branch,
+                        semester,
+                        subject,
+                    });
+                    document.getElementById("message").innerHTML = `<p>Repository link uploaded successfully!</p>`;
+                } catch (error) {
+                    console.error("Error uploading link:", error);
+                    document.getElementById("message").innerHTML = `<p>Error uploading link!</p>`;
+                }
+            } else {
+                alert("Please enter a GitHub repository link.");
+            }
+        });
+
+        // Fetch Study Materials
+        function fetchMaterials() {
+            const materialsRef = database.ref("study_materials");
+            materialsRef.on("value", (snapshot) => {
+                const materials = snapshot.val();
+                const materialsList = document.getElementById("materialsList");
+                materialsList.innerHTML = "<h2>Available Study Materials</h2>";
+
+                for (let key in materials) {
+                    const material = materials[key];
+                    const div = document.createElement("div");
+                    div.classList.add("material-item");
+                    div.innerHTML = `
+                        <p><strong>Branch:</strong> ${material.branch}</p>
+                        <p><strong>Semester:</strong> ${material.semester}</p>
+                        <p><strong>Subject:</strong> ${material.subject}</p>
+                        <a href="${material.url}" target="_blank">View Repository</a>
+                    `;
+                    materialsList.appendChild(div);
+                }
+            });
+        }
+
+        fetchMaterials();
+
+        // Display Subjects by Semester
+        const subjectsList = {
+    "civil": {
+        "sem1": ["English", "Basic Science", "Basic Mathematics"],
+        "sem2": ["Applied Science", "Applied Mechanics", "Applied Mathematics", "Engineering Drawing"],
+        "sem3": ["Strength of Materials", "Basic Electrical and Electronics Engineering", "Thermal Engineering", "Mechanical Drawing"],
+        "sem4": ["Theory of Machines", "Mechanical Engineering Measurements", "Fluid Mechanics", "Manufacturing Processes"],
+        "sem5": ["Management", "Power Engineering and Refrigeration", "Advanced Manufacturing Processes", "Elements of Machine Design"],
+        "sem6": ["Power Plant Engineering", "Industrial Safety", "Computer Integrated Manufacturing", "Project Work"]
+    },
+    "computer": {
+        "sem1": ["English", "Basic Science", "Basic Mathematics"],
+        "sem2": ["Applied Science", "Applied Mechanics", "Applied Mathematics", "Engineering Drawing"],
+        "sem3": ["Programming in C", "Data Structures", "Software Engineering", "Digital Electronics"],
+        "sem4": ["Object Oriented Programming using C++", "Computer Graphics", "Microprocessors", "Computer Networks"],
+        "sem5": ["Operating System", "Advanced Java Programming", "Software Testing", "Client Side Scripting"],
+        "sem6": ["Management", "Mobile Application Development", "Emerging Trends in Computer and Information Technology", "Project Work"]
+    },
+    "electrical": {
+        "sem1": ["English", "Basic Science", "Basic Mathematics"],
+        "sem2": ["Applied Science", "Applied Mechanics", "Applied Mathematics", "Engineering Drawing"],
+        "sem3": ["Electrical Circuits", "Power Systems", "Control Systems", "Electrical Machines"],
+        "sem4": ["Power Electronics", "Electrical Machines", "Power System Protection", "Electrical Measurements"],
+        "sem5": ["Management", "Advanced Electrical Machines", "Power System Analysis", "Renewable Energy Sources"],
+        "sem6": ["Power Plant Engineering", "Industrial Safety", "Computer Integrated Manufacturing", "Project Work"]
+    },
+    "electronics": {
+        "sem1": ["English", "Basic Science", "Basic Mathematics"],
+        "sem2": ["Applied Science", "Applied Mechanics", "Applied Mathematics", "Engineering Drawing"],
+        "sem3": ["Digital Electronics", "Microprocessors", "Communication Systems", "Electronic Circuits"],
+        "sem4": ["Analog Electronics", "VLSI Design", "Signal Processing", "Embedded Systems"],
+        "sem5": ["Management", "Advanced Microprocessors", "Communication Networks", "Digital Signal Processing"],
+        "sem6": ["Industrial Electronics", "Computer Integrated Manufacturing", "Project Work", "Advanced Communication Systems"]
+    },
+    "mechanical": {
+        "sem1": ["English", "Basic Science", "Basic Mathematics"],
+        "sem2": ["Applied Science", "Applied Mechanics", "Applied Mathematics", "Engineering Drawing"],
+        "sem3": ["Strength of Materials", "Basic Electrical and Electronics Engineering", "Thermal Engineering", "Mechanical Drawing"],
+        "sem4": ["Theory of Machines", "Mechanical Engineering Measurements", "Fluid Mechanics", "Manufacturing Processes"],
+        "sem5": ["Management", "Power Engineering and Refrigeration", "Advanced Manufacturing Processes", "Elements of Machine Design"],
+        "sem6": ["Power Plant Engineering", "Industrial Safety", "Computer Integrated Manufacturing", "Project Work"]
+    },
+    "it": {
+        "sem1": ["English", "Basic Science", "Basic Mathematics"],
+        "sem2": ["Applied Science", "Applied Mechanics", "Applied Mathematics", "Engineering Drawing"],
+        "sem3": ["Programming in C", "Data Structures", "Software Engineering", "Digital Electronics"],
+        "sem4": ["Object Oriented Programming using C++", "Computer Graphics", "Microprocessors", "Computer Networks"],
+        "sem5": ["Operating System", "Advanced Java Programming", "Software Testing", "Client Side Scripting"],
+        "sem6": ["Management", "Mobile Application Development", "Emerging Trends in Computer and Information Technology", "Project Work"]
+    }
+};
+
+// Function to display subjects based on branch and semester selection
+function displaySubjects() {
+    const branch = document.getElementById("branch").value;
+    const semester = document.getElementById("semester").value;
+    const subjects = subjectsList[branch][semester];
+    const subjectsDiv = document.getElementById("subjectsList");
+
+    subjectsDiv.innerHTML = `<h2>Subjects for ${branch.charAt(0).toUpperCase() + branch.slice(1)} - ${semester}</h2>`;
+    subjects.forEach(subject => {
+        const p = document.createElement("p");
+        p.textContent = subject;
+        subjectsDiv.appendChild(p);
+    });
+}
+
+// Add event listeners for branch and semester dropdown changes
+document.getElementById("branch").addEventListener("change", displaySubjects);
+document.getElementById("semester").addEventListener("change", displaySubjects);
+    </script>
+</body>
+</html>

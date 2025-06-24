@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #3c096c;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #3c096c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #5a189a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Add Student</h2>
+    <form id="addStudentForm">
+        <input type="text" id="fullName" placeholder="Full Name" required><br><br>
+        <input type="text" id="enrollmentNo" placeholder="Enrollment No" required><br><br>
+        <input type="text" id="branch" placeholder="Branch" required><br><br>
+        <input type="number" id="year" placeholder="Year" required><br><br>
+        <input type="text" id="currentSem" placeholder="Current Sem/Year" required><br><br>
+        <input type="text" id="collegeName" placeholder="College Name" required><br><br>
+        <button type="button" onclick="addStudent()">Add Student</button>
+    </form>
+</div>
+
+<script type="module">
+    // Firebase SDK imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyC44NKT8t45pQCe6-YQByjMH2QCXKZV8XQ",
+        authDomain: "edufusion-8efbf.firebaseapp.com",
+        databaseURL: "https://edufusion-8efbf-default-rtdb.firebaseio.com/",
+        projectId: "edufusion-8efbf",
+        storageBucket: "edufusion-8efbf.appspot.com",
+        messagingSenderId: "676084495283",
+        appId: "1:676084495283:web:efc5365f66679707a611c6",
+        measurementId: "G-D2T62EWR4X"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Function to add student data to Firebase
+    function addStudent() {
+        const fullName = document.getElementById("fullName").value;
+        const enrollmentNo = document.getElementById("enrollmentNo").value;
+        const branch = document.getElementById("branch").value;
+        const year = document.getElementById("year").value;
+        const currentSem = document.getElementById("currentSem").value;
+        const collegeName = document.getElementById("collegeName").value;
+
+        if (!fullName || !enrollmentNo || !branch || !year || !currentSem || !collegeName) {
+            alert("All fields are required!");
+            return;
+        }
+
+        const studentRef = push(ref(database, "students"));
+        set(studentRef, {
+            fullName: fullName,
+            enrollmentNo: enrollmentNo,
+            branch: branch,
+            year: parseInt(year, 10),
+            currentSem: currentSem,
+            collegeName: collegeName
+        })
+            .then(() => {
+                alert("Student data added successfully!");
+                document.getElementById("addStudentForm").reset(); // Reset form
+            })
+            .catch((error) => {
+                console.error("Error adding student data:", error);
+                alert("Failed to add student data.");
+            });
+    }
+
+    // Attach the addStudent function to the window object
+    window.addStudent = addStudent;
+</script>
+
+</body>
+</html>

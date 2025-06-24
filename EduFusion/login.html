@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #3c096c;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #3c096c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #5a189a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Student Login</h2>
+    <form>
+        <input type="text" id="fullName" placeholder="Full Name" required><br>
+        <input type="text" id="enrollmentNo" placeholder="Enrollment No" required><br>
+        <button type="button" onclick="authenticate()">Login</button>
+    </form>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC44NKT8t45pQCe6-YQByjMH2QCXKZV8XQ",
+        authDomain: "edufusion-8efbf.firebaseapp.com",
+        databaseURL: "https://edufusion-8efbf-default-rtdb.firebaseio.com/",
+        projectId: "edufusion-8efbf",
+        storageBucket: "edufusion-8efbf.appspot.com",
+        messagingSenderId: "676084495283",
+        appId: "1:676084495283:web:efc5365f66679707a611c6",
+        measurementId: "G-D2T62EWR4X"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    async function authenticate() {
+        const fullName = document.getElementById("fullName").value.trim();
+        const enrollmentNo = document.getElementById("enrollmentNo").value.trim();
+
+        if (!fullName || !enrollmentNo) {
+            alert("All fields are required!");
+            return;
+        }
+
+        try {
+            const dbRef = ref(database);
+            const snapshot = await get(child(dbRef, "students"));
+
+            if (snapshot.exists()) {
+                const students = snapshot.val();
+                const student = Object.values(students).find(s => s.fullName === fullName && s.enrollmentNo === enrollmentNo);
+
+                if (student) {
+                    sessionStorage.setItem("studentId", student.enrollmentNo);
+                    sessionStorage.setItem("studentName", student.fullName);
+                    sessionStorage.setItem("branch", student.branch);
+                    sessionStorage.setItem("currentSem", student.currentSem);
+
+                    window.location.href = "student_dashboard.html";
+                } else {
+                    alert("Invalid credentials. Please try again!");
+                }
+            } else {
+                alert("No student data found.");
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            alert("An error occurred. Please try again.");
+        }
+    }
+
+    // Attach the authenticate function to the window object
+    window.authenticate = authenticate;
+    
+
+</script>
+
+</body>
+</html>
