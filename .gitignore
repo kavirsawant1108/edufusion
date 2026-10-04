@@ -1,0 +1,26 @@
+# Operating system / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# PHP / local development
+/vendor/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Local database engine files
+*.frm
+*.ibd
+db.opt
+
+# Local exports / backups
+*.sql.gz
+*.bak
+*.tmp
