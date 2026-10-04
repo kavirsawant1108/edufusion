@@ -6,9 +6,9 @@
 
 EduFusion is a web-based education management system designed to centralize student, teacher, counselor, and academic information in one application.
 
-The project demonstrates full-stack development, relational database design, role-based workflows, and practical web application development.
+The project demonstrates full-stack development, relational database design, role-oriented workflows, and practical web application development.
 
-## Features
+## Key Features
 
 - Student management
 - Teacher management
@@ -20,41 +20,34 @@ The project demonstrates full-stack development, relational database design, rol
 
 ## Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** PHP
-- **Database:** MySQL
-- **Version Control:** Git / GitHub
+| Layer | Technology |
+|---|---|
+| Frontend | HTML, CSS, JavaScript |
+| Backend | PHP |
+| Database | MySQL |
+| Version Control | Git / GitHub |
 
-> The stack above reflects the technologies identified in this repository. Update this section if the implementation changes.
-
-## Architecture
+## System Architecture
 
 ```text
-┌─────────────────────┐
-│      Web Browser    │
-│   HTML/CSS/JS UI    │
-└──────────┬──────────┘
-           │ HTTP
-           ▼
-┌─────────────────────┐
-│      PHP Backend    │
-│ Application Logic   │
-└──────────┬──────────┘
-           │ SQL
-           ▼
-┌─────────────────────┐
-│       MySQL         │
-│ Relational Database │
-└─────────────────────┘
+Web Browser
+    │
+    │ HTTP
+    ▼
+PHP Application
+    │
+    │ SQL
+    ▼
+MySQL Database
 ```
 
 ## Database
 
 The application uses MySQL for persistent data storage.
 
-For reproducible setup, database definitions should be maintained as SQL scripts rather than database-engine-specific binary files.
+Database engine files such as `.frm`, `.ibd`, and `db.opt` are local MySQL artifacts and should not be treated as portable application source.
 
-Recommended structure:
+For reproducible development, add a database export such as:
 
 ```text
 database/
@@ -68,7 +61,7 @@ database/
 
 - PHP
 - MySQL
-- A local PHP development environment such as XAMPP
+- XAMPP or another local PHP development environment
 - Git
 
 ### Installation
@@ -80,28 +73,28 @@ cd edufusion
 
 1. Configure the PHP application for your local environment.
 2. Create a MySQL database.
-3. Import the project database/schema.
-4. Update database connection settings.
+3. Import the project's SQL schema/export when available.
+4. Configure the database connection.
 5. Start Apache/PHP and open the application in your browser.
 
-## Project Structure
-
-The repository is being progressively organized around application code, database assets, and documentation.
+## Recommended Project Structure
 
 ```text
 edufusion/
+├── EduFusion/
 ├── database/
-├── assets/
 ├── docs/
-├── application/
+├── assets/
+├── .gitignore
 └── README.md
 ```
 
 ## Engineering Notes
 
 - Keep database credentials outside committed source code.
-- Prefer SQL schema/seed files over database engine storage files.
-- Keep temporary test files and local development artifacts out of the production repository.
+- Keep local database-engine artifacts out of Git.
+- Prefer portable SQL schema/seed files for reproducible setup.
+- Keep temporary development artifacts out of the repository.
 - Document major architectural decisions as the application evolves.
 
 ## Future Improvements
@@ -109,11 +102,11 @@ edufusion/
 - Role-based authentication and authorization
 - REST API layer
 - Automated tests
-- Better database migration workflow
+- Database migration workflow
 - Deployment configuration
 - CI checks
 - API and architecture documentation
 
 ## License
 
-Add a license when the project's ownership and reuse terms are confirmed.
+Add a license when project ownership and reuse terms are confirmed.
